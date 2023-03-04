@@ -71,10 +71,10 @@ class Decorator(Pizza):
         self.component = component
 
     def get_cost(self):
-        return self.component.get_cost() + super().get_cost()
+        return self.component.get_cost() + Pizza.get_description(self)
 
     def get_description(self):
-        return self.component.get_description() + " " + super().get_description()
+        return self.component.get_description() + " " + Pizza.get_description(self)
 
 
 # Creating subclasses "Olives", "Mushrooms", "GoatCheese", "Meat", "Onions", and "Corn"
