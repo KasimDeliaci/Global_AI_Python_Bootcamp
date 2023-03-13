@@ -7,7 +7,7 @@ with open('Menu.txt', 'w') as f:
     f.write('* Thank you!\n')
 
 
-# Creating superclass "Pizza"
+# pizza superclassını olusturduk
 class Pizza:
     def get_description(self):
         pass
@@ -16,111 +16,149 @@ class Pizza:
         pass
 
 
-# Creating subclasses "ClassicPizza", "MargheritaPizza", "TurkPizza", and "PlainPizza"
+# subclasslar
 class ClassicPizza(Pizza):
-    def __init__(self):
-        self.description = "Classic Pizza"
-        self.cost = 10.0
+    price = 15.99
+    description = "Classic Pizza"
 
     def get_description(self):
         return self.description
 
     def get_cost(self):
-        return self.cost
+        return self.price
 
 
 class MargheritaPizza(Pizza):
-    def __init__(self):
-        self.description = "Margherita Pizza"
-        self.cost = 12.0
+    price = 17.99
+    description = "Margherita Pizza"
 
     def get_description(self):
         return self.description
 
     def get_cost(self):
-        return self.cost
+        return self.price
 
 
 class TurkPizza(Pizza):
-    def __init__(self):
-        self.description = "Turk Pizza"
-        self.cost = 15.0
+    price = 19.99
+    description = "Turk Pizza"
 
     def get_description(self):
         return self.description
 
     def get_cost(self):
-        return self.cost
+        return self.price
 
 
 class PlainPizza(Pizza):
-    def __init__(self):
-        self.description = "Dominos Pizza"
-        self.cost = 20.0
+    price = 12.99
+    description = "Plain Pizza"
 
     def get_description(self):
         return self.description
 
     def get_cost(self):
-        return self.cost
+        return self.price
 
 
-# Creating superclass "Decorator"
+# decorator superclasini olusturduk
 class Decorator(Pizza):
     def __init__(self, component):
         self.component = component
 
     def get_cost(self):
-        return self.component.get_cost() + Pizza.get_description(self)
+        return self.component.get_cost() + Pizza.get_cost(self)
 
     def get_description(self):
         return self.component.get_description() + " " + Pizza.get_description(self)
 
 
-# Creating subclasses "Olives", "Mushrooms", "GoatCheese", "Meat", "Onions", and "Corn"
+# decorator subclasslari
 class Olives(Decorator):
+    price = 1.50
+    description = "with Olives"
+
     def __init__(self, component):
-        super().__init__(component)
-        self.description = "Olives"
-        self.cost = 2.0
+        Decorator.__init__(self, component)
+
+    def get_cost(self):
+        return self.component.get_cost() + self.price
+
+    def get_description(self):
+        return self.component.get_description() + " " + self.description
 
 
 class Mushrooms(Decorator):
+    price = 1.25
+    description = "with Mushrooms"
+
     def __init__(self, component):
-        super().__init__(component)
-        self.description = "Mushrooms"
-        self.cost = 3.0
+        Decorator.__init__(self, component)
+
+    def get_cost(self):
+        return self.component.get_cost() + self.price
+
+    def get_description(self):
+        return self.component.get_description() + " " + self.description
 
 
 class GoatCheese(Decorator):
+    price = 2.25
+    description = "with Goat Cheese"
+
     def __init__(self, component):
-        super().__init__(component)
-        self.description = "Goat Cheese"
-        self.cost = 4.0
+        Decorator.__init__(self, component)
+
+    def get_cost(self):
+        return self.component.get_cost() + self.price
+
+    def get_description(self):
+        return self.component.get_description() + " " + self.description
 
 
 class Meat(Decorator):
+    price = 2.50
+    description = "with Meat"
+
     def __init__(self, component):
-        super().__init__(component)
-        self.description = "Meat"
-        self.cost = 5.0
+        Decorator.__init__(self, component)
+
+    def get_cost(self):
+        return self.component.get_cost() + self.price
+
+    def get_description(self):
+        return self.component.get_description() + " " + self.description
 
 
 class Onions(Decorator):
+    price = 1.00
+    description = "with Onions"
+
     def __init__(self, component):
-        super().__init__(component)
-        self.description = "Onions"
-        self.cost = 1.0
+        Decorator.__init__(self, component)
+
+    def get_cost(self):
+        return self.component.get_cost() + self.price
+
+    def get_description(self):
+        return self.component.get_description() + " " + self.description
 
 
 class Corn(Decorator):
+    price = 1.00
+    description = "with Corn"
+
     def __init__(self, component):
-        super().__init__(component)
-        self.description = "Corn"
-        self.cost = 1.5
+        Decorator.__init__(self, component)
+
+    def get_cost(self):
+        return self.component.get_cost() + self.price
+
+    def get_description(self):
+        return self.component.get_description() + " " + self.description
 
 
-# Creating a function to print the menu on the screen
+# Ekrana menuyu yazdiracak fonksiyon tanımladık
 def print_menu():
     with open('Menu.txt', 'r') as FILE:
         menu = FILE.read()
@@ -128,9 +166,8 @@ def print_menu():
 
 
 if __name__ == '__main__':
-    # Print the menu on the screen
     print_menu()
-    # Let the user choose a pizza and sauce from the menu
+    # Kullanicilarin secim islemleri
     while True:
         try:
             pizza_choice = int(input("Please enter the number of the pizza you would like to order: "))
@@ -161,23 +198,23 @@ if __name__ == '__main__':
     print("15: Onions")
     print("16: Corn")
 
-    sauce_choice = input("Enter sauce choice: ")
-    if sauce_choice == "11":
+    sauce_choice = int(input("Enter sauce choice: "))
+    if sauce_choice == 11:
         pizza = Olives(pizza)
         print("Olives selected.")
-    elif sauce_choice == "12":
+    elif sauce_choice == 12:
         pizza = Mushrooms(pizza)
         print("Mushrooms selected.")
-    elif sauce_choice == "13":
+    elif sauce_choice == 13:
         pizza = GoatCheese(pizza)
         print("Goat Cheese selected.")
-    elif sauce_choice == "14":
+    elif sauce_choice == 14:
         pizza = Meat(pizza)
         print("Meat selected.")
-    elif sauce_choice == "15":
+    elif sauce_choice == 15:
         pizza = Onions(pizza)
         print("Onions selected.")
-    elif sauce_choice == "16":
+    elif sauce_choice == 16:
         pizza = Corn(pizza)
         print("Corn selected.")
     else:
@@ -197,4 +234,4 @@ if __name__ == '__main__':
     with open("Orders_Database.csv", mode="a") as file:
         writer = csv.writer(file)
         writer.writerow([name, id_number, credit_card_number, credit_card_password,
-                         pizza.get_description(), str(pizza.get_cost()), order_time])
+                         str(pizza.get_description()), str(pizza.get_cost()), order_time])
